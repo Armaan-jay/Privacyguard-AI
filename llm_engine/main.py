@@ -11,6 +11,26 @@ import json
 import torch
 from typing import List, Optional
 
+import re
+
+VIOLENCE_PATTERNS = [
+    r"\bkill\b",
+    r"\bkilling\b",
+    r"\bmurder\b",
+    r"\bassassinate\b",
+    r"\bshoot\b",
+    r"\bstab\b",
+    r"\bpoison\b",
+    r"\bexplode\b",
+    r"\bhang\b",
+    r"\bstrangle\b",
+    r"\bhitman\b"
+]
+
+def detect_violent_intent(prompt: str) -> bool:
+    p = prompt.lower()
+    return any(re.search(pattern, p) for pattern in VIOLENCE_PATTERNS)
+
 # ─────────────────────────────────────────────────────────────
 # App & Constants
 # ─────────────────────────────────────────────────────────────
